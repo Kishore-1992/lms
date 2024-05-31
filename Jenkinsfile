@@ -5,7 +5,6 @@ pipeline {
             steps {
                 sh'cd api && docker docker build -t dockerbk1992/lms-be .'
                 echo 'docker image build..'
-               steps {
                 script {
                     docker.build("lms:${env.VERSION}")
                 }
@@ -22,5 +21,5 @@ pipeline {
         }
             }
         }
-}
+
 //kjkjgkhgkjg
