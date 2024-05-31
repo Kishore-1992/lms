@@ -5,8 +5,6 @@ pipeline {
         // https://jenkins.io/doc/book/pipeline/jenkinsfile/#usernames-and-passwords
         NEXUS_CRED = credentials('nexus')
    }
-
-    stages {
         stage('Build') {
             steps {
                 echo 'docker image build..'
@@ -27,4 +25,3 @@ pipeline {
         }
             }
         }
-}
