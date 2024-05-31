@@ -4,6 +4,7 @@ pipeline {
         // More detail: 
         // https://jenkins.io/doc/book/pipeline/jenkinsfile/#usernames-and-passwords
    }
+   stages{
         stage('Build') {
             steps {
                 echo 'docker image build..'
@@ -24,4 +25,5 @@ pipeline {
         }
             }
         }
+}
 //kjkjgkhgkjg
