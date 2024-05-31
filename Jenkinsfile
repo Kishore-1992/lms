@@ -3,7 +3,7 @@ pipeline {
    stages{
         stage('Build') {
             steps {
-                sh'cd api && docker docker build -t dockerbk1992/lms-be .'
+                sh'cd api && docker build -t dockerbk1992/lms-be .'
                 echo 'docker image build..'
                 script {
                     docker.build("lms:${env.VERSION}")
