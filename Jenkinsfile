@@ -9,23 +9,22 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
-                sh 'cd webapp && npm install && npm run build'
+                echo 'docker image build..'
+               steps {
+                script {
+                    docker.build("lms:${env.VERSION}")
+                }
             }
         }
-        stage('Test') {
+        stage('Push to Docker Registry') {
             steps {
-                echo 'Testing..'
-                sh 'cd webapp && sudo docker container run --rm -e SONAR_HOST_URL="http://20.172.187.108:9000" -e SONAR_LOGIN="sqp_cae41e62e13793ff17d58483fb6fb82602fe2b48" -v ".:/usr/src" sonarsource/sonar-scanner-cli -Dsonar.projectKey=lms'
+                script {
+                    docker.withRegistry('https://hub.docker.com/u/dockerbk1992', 'dockerbk1992/Kishore@92') {
+                        docker.image("your-image-name:${env.VERSION}").push()
+                    }
+                }
             }
         }
-        stage('Release') {
-            steps {
-                echo 'Release Nexus'
-                sh 'rm -rf *.zip'
-                sh 'cd webapp && zip dist-${BUILD_NUMBER}.zip -r dist'
-                sh 'cd webapp && curl -v -u $Username:$Password --upload-file dist-${BUILD_NUMBER}.zip http://20.172.187.108:8081/repository/lms/'
             }
         }
-    }
-}
+       
