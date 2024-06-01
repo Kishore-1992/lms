@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build docker image') {
             steps {
-                sh "docker build -t dockerbk1992/lms:$BUILD_NUMBER ."
+                sh "cd api && docker build -t dockerbk1992/lms:$BUILD_NUMBER ."
             }
         }
         stage('Login to Dockerhub') {
