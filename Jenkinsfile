@@ -7,7 +7,7 @@ pipeline {
         }
         stage('Build docker image') {
             steps {
-                sh "docker build -t valaxy/nodeapp:$BUILD_NUMBER ."
+                sh "docker build -t dockerbk1992/lms:$BUILD_NUMBER ."
             }
         }
         stage('Login to Dockerhub') {
@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Push docker image') {
             steps {
-                sh "docker push valaxy/nodeapp:$BUILD_NUMBER"
+                sh "docker push dockerbk1992/lms:$BUILD_NUMBER"
             }
             post {
                 always {
