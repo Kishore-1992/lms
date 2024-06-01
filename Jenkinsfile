@@ -4,7 +4,6 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('kbk123')
     }
     stages {
-        }
         stage('Build docker image') {
             steps {
                 sh "docker build -t dockerbk1992/lms:$BUILD_NUMBER ."
@@ -26,4 +25,5 @@ pipeline {
             }
         }
     }
+}
 
