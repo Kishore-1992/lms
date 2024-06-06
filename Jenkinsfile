@@ -1,40 +1,26 @@
 pipeline {
     agent any
-    environment {
-        DOCKERHUB_CREDENTIALS = credentials('kbk123')
-    }
+
     stages {
- stage('Get Package Version') {
+        stage('Build and Push Docker Images') {
             steps {
                 script {
-                    def packageJson = readJSON file: 'api/package.json'
-                    def version = packageJson.version
-                    // Save the version to an environment variable
-                    env.PACKAGE_VERSION = version
-                }
-            }
-        }      
-         stage('Build docker image') {
-            steps {
-                sh "cd api && docker build -t dockerbk1992/lms:${env.PACKAGE_VERSION} ."
-            }
-        }
+                    // Build frontend Docker image
+                    docker.build('frontend-image', '-f webapp/Dockerfile ./frontend')
+                    // Build backend Docker image
+                    docker.build('backend-image', '-f api/Dockerfile ./backend')
 
-          stage('Login to Dockerhub') {
-            steps {
-                sh "echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin"
-            }
-        }
-        stage('Push docker image') {
-            steps {
-                sh "docker push dockerbk1992/lms:${env.PACKAGE_VERSION}"
-            }
-            post {
-                always {
-                    sh 'docker logout'
+                    // Push frontend Docker image to registry
+                    docker.withRegistry('https://index.docker.io/v1/', 'kbk123') {
+                        docker.image('frontend-image').push('latest')
+                    }
+
+                    // Push backend Docker image to registry
+                    docker.withRegistry('https://index.docker.io/v1/', 'kbk123') {
+                        docker.image('backend-image').push('latest')
+                    }
                 }
             }
         }
     }
 }
-
