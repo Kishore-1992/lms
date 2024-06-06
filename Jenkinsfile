@@ -4,7 +4,6 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('kbk123')
     }
     stages {
-       
  stage('Get Package Version') {
             steps {
                 script {
