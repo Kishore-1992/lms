@@ -16,8 +16,8 @@ pipeline {
         }      
          stage('Build docker image') {
             steps {
-                sh "cd api && docker build -t dockerbk1992/lms-be:${env.PACKAGE_VERSION} ."
-                sh"cd webapp && docker build -t dockerbk1992/lms-fe:${env.PACKAGE_VERSION} ."
+                sh "cd api && docker build -t dockerbk1992/lms-be1:${env.PACKAGE_VERSION} ."
+                sh"cd webapp && docker build -t dockerbk1992/lms-fe1:${env.PACKAGE_VERSION} ."
             }
         }
 
