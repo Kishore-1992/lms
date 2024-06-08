@@ -28,8 +28,8 @@ pipeline {
         }
         stage('Push docker image') {
             steps {
-                sh "docker push dockerbk1992/lms-be:${env.PACKAGE_VERSION}"
-                sh "docker push dockerbk1992/lms-fe:${env.PACKAGE_VERSION}"
+                sh "docker push dockerbk1992/lms-be1:${env.PACKAGE_VERSION}"
+                sh "docker push dockerbk1992/lms-fe1:${env.PACKAGE_VERSION}"
             }
             post {
                 always {
